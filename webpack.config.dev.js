@@ -5,7 +5,7 @@ module.exports = {
   ],
 
   output: {
-    filename: 'dist/bundle.js'
+    filename: 'built/bundle.js'
   },
 
   target: 'node',

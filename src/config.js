@@ -12,4 +12,3 @@ const dataBase = new DataBase({
 });
 
 export default dataBase;
-e
