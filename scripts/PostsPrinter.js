@@ -1,6 +1,5 @@
 "use strict";
 
-import MyWriter from "./MyWriter.js";
 
 import Help from "./Help";
 import NumberController from "./NumberController";
@@ -86,7 +85,7 @@ export default class PostsPrinter {
         query = query + " SELECT p1 FROM p ";
         query = query + " WHERE p4 = " + thread_id + " AND p7 = 0 ";
 
-        if(since != null) {
+        if(since !== null) {
             if(sort === "+") query = query + " AND p12 > (SELECT p12 FROM p WHERE p1 = " + since + ") ";
             if(sort === "-") query = query + " AND p12 < (SELECT p12 FROM p WHERE p1 = " + since + ") ";
         }

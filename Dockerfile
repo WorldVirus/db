@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER Kuklina Nina
+MAINTAINER Ivaschenko Veniamin
 
 # Обвновление списка пакетов
 RUN apt-get -y update

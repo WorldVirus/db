@@ -1,6 +1,5 @@
 "use strict";
 
-import MyWriter from "./MyWriter.js";
 
 import NumberController from "./NumberController";
 import Help from "./Help";
@@ -15,7 +14,7 @@ export default class PostWorker {
         this.count = 2;
     }
 
-    changePostMessage(request, response, post_id) {
+    async changePostMessage(request, response, post_id) {
         let aaa = Help.objArr();
 
         let bigString = "";
@@ -37,13 +36,6 @@ export default class PostWorker {
 
                     const oldMessage = post.message + "";
 
-                    MyWriter.log("---------------------------------------");
-                    MyWriter.log("OLD message");
-                    MyWriter.log(oldMessage);
-                    MyWriter.log("---------------------------------------");
-                    MyWriter.log("NEW message");
-                    MyWriter.log(newMessage);
-                    MyWriter.log("---------------------------------------");
 
                     let resultString = oldMessage;
                     let changed = false;
@@ -58,7 +50,6 @@ export default class PostWorker {
                         post.isEdited = post.is___edited;
                         response.status(200);
                         response.end(JSON.stringify(post));
-                        MyWriter.log("___NO___CHANGES____");
                     } else {
                         // change message OK
                         this.queryManager.createQuery("UPDATE p SET p9 = '" + resultString + "', p11 = True WHERE p1 = " + post.id + ";", {}, () => {
@@ -66,9 +57,7 @@ export default class PostWorker {
                             post.message = resultString;
                             response.status(200);
                             response.end(JSON.stringify(post));
-                            MyWriter.log("___YES___CHANGES____");
                         }, (e) => {
-                            MyWriter.log("_______UPDATING__POST__MESSAGE___ERROR___");
                         });
                     }
                 }
@@ -76,7 +65,7 @@ export default class PostWorker {
         });
     }
 
-    getPostDetails(request, response, post_id, dict) {
+    async getPostDetails(request, response, post_id, dict) {
         let aaa = Help.objArr();
 
         let bbb = Help.objArr();
@@ -130,7 +119,7 @@ export default class PostWorker {
         }, () => {});
     }
 
-    addPostsArray(request, response, thread_id_slug) {
+    async addPostsArray(request, response, thread_id_slug) {
         let aaa = Help.objArr();
         let bbb = Help.objArr();
         let ccc = Help.objArr();
@@ -143,9 +132,6 @@ export default class PostWorker {
             const created = new Date().toISOString();
             const postArray = JSON.parse(bigString);
 
-            MyWriter.log("-------------------------------------------------------");
-            MyWriter.log("POSTS number start: " + postArray.length);
-            MyWriter.log("-------------------------------------------------------");
 
             let thread_id = "";
             let thread_slug = "";
@@ -323,7 +309,7 @@ export default class PostWorker {
                                                     }
 
                                                     postArray[i].path = "" + postArray[i].path;
-                                                    //MyWriter.log(postArray[i].path);
+                                                    //.log(postArray[i].path);
 
 
                                                     let h = " ";
@@ -355,9 +341,9 @@ export default class PostWorker {
                                                         });
                                                     }
 
-                                                    //MyWriter.log("-------------------------------------------------------");
-                                                    //MyWriter.log("POSTS number finish: " + n);
-                                                    //MyWriter.log("-------------------------------------------------------");
+                                                    //.log("-------------------------------------------------------");
+                                                    //.log("POSTS number finish: " + n);
+                                                    //.log("-------------------------------------------------------");
 
                                                     this.queryManager.createQuery("UPDATE f SET f2 = f2 + " + postArray.length + " WHERE f1 = " + forum_id + ";", {}, () => {
 
@@ -368,38 +354,32 @@ export default class PostWorker {
                                                         for(let i = 0; i < answer.length; i++) {
                                                             const z = "  INSERT INTO fp (fp_1, fp_2) VALUES(" + answer[i].user_id + ", " + forum_id + ") ON CONFLICT DO NOTHING;  ";
                                                             registString += z;
-                                                            //MyWriter.log(z);
+                                                            //.log(z);
                                                         }
 
                                                         this.queryManager.createQuery(registString, {}, () => {
                                                             response.status(201);
                                                             response.end(JSON.stringify(answer));
                                                         }, (eee) => {
-                                                            MyWriter.log("________FP____fp_1___fp_2_____ERROR___");
-                                                            MyWriter.log(eee);
+
                                                         });
 
                                                     }, (e) => {
-                                                        MyWriter.log("__UPDATE__FORUM___ERROR___");
-                                                        MyWriter.log(e);
+
                                                     });
                                                 }, (err) => {
-                                                    MyWriter.log("X_1");
-                                                    MyWriter.log(err);
+
                                                 });
                                     }
                                 }, () => {
-                                    MyWriter.log("X_2");
                                 });
                             }
                         }, () => {
-                            MyWriter.log("X_3");
                         });
                     }
                 }
 
             }, () => {
-                MyWriter.log("X_4");
             });
         });
     }

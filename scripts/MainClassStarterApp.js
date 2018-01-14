@@ -1,8 +1,7 @@
 "use strict";
 
-import Router from "./Router";
+import Router from "./router/Router";
 
-import MyWriter from "./MyWriter.js";
 
 class MainClassStarterApp {
     static importModule(s) {
@@ -14,9 +13,9 @@ class MainClassStarterApp {
     constructor() {
         let pg = MainClassStarterApp.importModule("pg");
         let fs = MainClassStarterApp.importModule("fs");
-        let express = MainClassStarterApp.importModule("express");
+        let ss = MainClassStarterApp.importModule("koa");
 
-        this.app = express();
+        this.app = ss();
         this.pg = pg;
         this.fs = fs;
 

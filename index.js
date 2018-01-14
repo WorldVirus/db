@@ -142,7 +142,7 @@ class DBiniter {
         this.fs = fs;
         this.queryManager = queryManager;
 
-        this.fs.readFile('./DATABASE.sql', 'utf8',  (err, data) => {
+        this.fs.readFile('./schema.sql', 'utf8',  (err, data) => {
             this.queryManager.createQuery(data, {}, () => {
                 console.log("INIT_DATABASE_OK");
                 callback();
@@ -186,9 +186,9 @@ class MainClassStarterApp {
     constructor() {
         let pg = MainClassStarterApp.importModule("pg");
         let fs = MainClassStarterApp.importModule("fs");
-        let express = MainClassStarterApp.importModule("express");
+        let ss = MainClassStarterApp.importModule("ss");
 
-        this.app = express();
+        this.app = ss();
         this.pg = pg;
         this.fs = fs;
 
@@ -461,7 +461,7 @@ process.umask = function() { return 0; };
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0___js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QueryManager__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DBiniter__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UserWorker__ = __webpack_require__(8);

@@ -1,7 +1,7 @@
-"use strict";
 
 module.exports = {
-    entry: "./scripts/MainClassStarterApp.js",
+    entry: [    'babel-polyfill',
+        "./scripts/MainClassStarterApp.js"],
     output: {
         filename: "./index.js"
     }
