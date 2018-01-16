@@ -15,9 +15,9 @@ USER postgres
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
 RUN /etc/init.d/postgresql start &&\
-    psql --command "ALTER USER postgres WITH SUPERUSER PASSWORD '12345';" &&\
-    createdb -E utf8 -T template0 -O postgres bbb_12345 &&\
-    /etc/init.d/postgresql stop
+    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
+                       createdb -E utf8 -T template0 -O docker docker &&\
+                       /etc/init.d/postgresql stop
 
 # config Postgre
 RUN echo "synchronous_commit = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
@@ -46,11 +46,10 @@ RUN apt-get install -y nodejs
 
 
 # Копируем исходный код в Docker-контейнер
-ENV APP /root/app
-ADD ./ $APP
+ADD . /db
+WORKDIR /db
 
 # Собираем и устанавливаем пакет
-WORKDIR $APP
 RUN npm install
 RUN npm run webpack-prod
 
@@ -59,5 +58,6 @@ EXPOSE 5000
 
 #
 # Запускаем PostgreSQL и сервер
-#
-CMD service postgresql start  && npm start
+ENV PGPASSWORD docker
+
+CMD service postgresql start && psql -h localhost -U docker -d docker -f DATABASE.sql && npm start

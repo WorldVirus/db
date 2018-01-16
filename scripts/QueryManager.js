@@ -9,10 +9,10 @@ export default class QueryManager {
         this.fs = fs;
 
         const pool = new pg.Pool({
-            user: 'postgres',
+            user: 'docker',
+            database: 'docker',
+            password: 'docker',
             host: 'localhost',
-            database: 'bbb_12345',
-            password: '12345',
             port: 5432
         });
 
