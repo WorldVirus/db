@@ -1,5 +1,6 @@
 "use strict";
 
+import MyWriter from "./MyWriter.js";
 
 import Help from "./Help";
 import DBiniter from "./DBiniter";
@@ -16,6 +17,7 @@ export default class ServiceWorker {
         new DBiniter(this.app, this.pg, this.fs, this.queryManager, () => {
             response.status(200);
             response.end("CLEAR_ALL_DB_OK");
+            MyWriter.log("CLEAR_ALL_DB_OK");
         });
     }
 
@@ -46,6 +48,7 @@ export default class ServiceWorker {
                             user: parseInt(users)
                         };
 
+                        MyWriter.log("GET DB INFO OK");
                         response.status(200);
                         response.end(JSON.stringify(answer));
                     }, () => {});

@@ -1,7 +1,8 @@
 "use strict";
 
-import Router from "./router/Router";
-
+import Router from "./Router";
+import Koa from 'koa'
+import MyWriter from "./MyWriter.js";
 
 class MainClassStarterApp {
     static importModule(s) {
@@ -13,15 +14,15 @@ class MainClassStarterApp {
     constructor() {
         let pg = MainClassStarterApp.importModule("pg");
         let fs = MainClassStarterApp.importModule("fs");
-        let ss = MainClassStarterApp.importModule("koa");
+        let express = MainClassStarterApp.importModule("express");
 
-        this.app = ss();
+        this.app = express();
         this.pg = pg;
         this.fs = fs;
 
         this.router = new Router(this.app, this.pg, this.fs);
 
-        this.allowAllOrigins();
+     //   this.allowAllOrigins();
         this.addListenersToServerQueries();
         this.startServer();
     }
@@ -33,14 +34,14 @@ class MainClassStarterApp {
         console.log("_____________________________________\n\n")
     }
 
-    allowAllOrigins() {
-        const app = this.app;
-        app.use(function(req, res, next) {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            next();
-        });
-    }
+    // allowAllOrigins() {
+    //     const app = this.app;
+    //     app.use(function(req, res, next) {
+    //         res.header("Access-Control-Allow-Origin", "*");
+    //         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //         next();
+    //     });
+    // }
 
     addListenersToServerQueries() {
         const app = this.app;

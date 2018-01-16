@@ -1,15 +1,14 @@
 "use strict";
-import DataBase from './database/Database'
-const promise = require('bluebird');
+
+import MyWriter from "./MyWriter.js";
+
 export default class QueryManager {
     constructor(app, pg, fs) {
         this.app = app;
         this.pg = pg;
         this.fs = fs;
 
-        const pool = new DataBase({
-            promiseLib: promise
-        }, {
+        const pool = new pg.Pool({
             user: 'postgres',
             host: 'localhost',
             database: 'bbb_12345',
@@ -18,6 +17,7 @@ export default class QueryManager {
         });
 
         pool.on('error', (err, client) => {
+            MyWriter.log("_____POOL_____ERROR_____");
         });
 
         this.pool = pool;
@@ -28,8 +28,10 @@ export default class QueryManager {
 
         pool.query(queryString, [], (err, res) => {
             if(err !== null) {
+                MyWriter.log("callbackError");
                 callbackError(err);
             } else {
+                MyWriter.log("callbackNormal");
                 resultObject.arr = res.rows;
                 callbackNormal();
             }

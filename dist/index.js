@@ -33,6 +33,9 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -60,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -164,110 +167,6 @@ class DBiniter {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Router__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MyWriter_js__ = __webpack_require__(0);
-
-
-
-
-
-
-class MainClassStarterApp {
-    static importModule(s) {
-        let answer = "";
-        eval("  answer = require('" + s + "');  ");
-        return answer;
-    }
-
-    constructor() {
-        let pg = MainClassStarterApp.importModule("pg");
-        let fs = MainClassStarterApp.importModule("fs");
-        let express = MainClassStarterApp.importModule("express");
-
-        this.app = express();
-        this.pg = pg;
-        this.fs = fs;
-
-        this.router = new __WEBPACK_IMPORTED_MODULE_0__Router__["a" /* default */](this.app, this.pg, this.fs);
-
-        this.allowAllOrigins();
-        this.addListenersToServerQueries();
-        this.startServer();
-    }
-
-    startServer() {
-        let port = process.env.PORT || 5000;
-        this.app.listen(port);
-        console.log("\nServer works on port " + port);
-        console.log("_____________________________________\n\n")
-    }
-
-    allowAllOrigins() {
-        const app = this.app;
-        app.use(function(req, res, next) {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            next();
-        });
-    }
-
-    addListenersToServerQueries() {
-        const app = this.app;
-        const pg = this.pg;
-        const fs = this.fs;
-
-        this.freeProcess = true;
-        this.mass = [];
-
-        let inter = setInterval(() => {
-            if(this.mass.length > 0) {
-                if(this.mass[0].res.finished === true) {
-                    this.mass.splice(0,1);
-                    this.freeProcess = true;
-
-                    if(this.freeProcess === true) {
-                        if(this.mass.length > 0) {
-                            this.freeProcess = false;
-                            const type = "POST";
-                            this.router.addQuery(type, this.mass[0].req, this.mass[0].res);
-                        }
-                    }
-                }
-            }
-        }, 1);
-
-        app.get('/*', (request, response) => {
-            const type = "GET";
-            this.router.addQuery(type, request, response);
-        });
-
-        app.post('/*', (request, response) => {
-            this.mass.push({
-                req: request,
-                res: response
-            });
-
-            if(this.freeProcess === true) {
-                if(this.mass.length > 0) {
-                    this.freeProcess = false;
-                    const type = "POST";
-                    this.router.addQuery(type, this.mass[0].req, this.mass[0].res);
-                }
-            }
-        });
-    }
-}
-
-const mainObj = new MainClassStarterApp();
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -457,21 +356,21 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QueryManager__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QueryManager__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DBiniter__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UserWorker__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ForumWorker__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ThreadWorker__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Dictionary__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__PostWorker__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__VoteWorker__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__PostsPrinter__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ServiceWorker__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__UserWorker__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ForumWorker__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ThreadWorker__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Dictionary__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__PostWorker__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__VoteWorker__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__PostsPrinter__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ServiceWorker__ = __webpack_require__(12);
 
 
 
@@ -689,166 +588,41 @@ class Router {
 
 
 /***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
+
+
+
+
+class Dictionary {
+    constructor(content) {
+        this.content = content;
+    }
+
+    getDictionary() {
+        let dict = {};
+
+        let mass = this.content.split("&");
+        for(let i = 0; i < mass.length; i++) {
+            let s = mass[i];
+            let arr = s.split("=");
+            let key = arr[0] + "";
+            let value = arr[1] + "";
+            dict[key] = decodeURIComponent(value);
+        }
+
+        return dict;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Dictionary;
+
+
+
+/***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
-
-
-
-
-class QueryManager {
-    constructor(app, pg, fs) {
-        this.app = app;
-        this.pg = pg;
-        this.fs = fs;
-
-        const pool = new pg.Pool({
-            user: 'postgres',
-            host: 'localhost',
-            database: 'bbb_12345',
-            password: '12345',
-            port: 5432
-        });
-
-        pool.on('error', (err, client) => {
-            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("_____POOL_____ERROR_____");
-        });
-
-        this.pool = pool;
-    }
-
-    createQuery(queryString, resultObject, callbackNormal, callbackError) {
-        const pool = this.pool;
-
-        pool.query(queryString, [], (err, res) => {
-            if(err !== null) {
-                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("callbackError");
-                callbackError(err);
-            } else {
-                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("callbackNormal");
-                resultObject.arr = res.rows;
-                callbackNormal();
-            }
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = QueryManager;
-
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Help__ = __webpack_require__(1);
-
-
-
-
-
-
-class UserWorker {
-    constructor(app, pg, fs, queryManager) {
-        this.app = app;
-        this.pg = pg;
-        this.fs = fs;
-        this.queryManager = queryManager;
-    }
-
-    changeUserInfo(request, response, nickname) {
-        let bigString = "";
-        request.on('data', (data) => {
-            bigString += data;
-        }).on('end', () => {
-            let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-            let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-            this.queryManager.createQuery("SELECT * FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", aaa, () => {
-                if(aaa.arr.length === 0) {
-                    const answer = {
-                        message: "NO"
-                    };
-                    response.status(404);
-                    response.end(JSON.stringify(answer));
-                } else {
-                    const newUser = JSON.parse(bigString);
-                    const oldUser = aaa.arr[0];
-                    const id = oldUser.u1;
-
-                    if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(newUser.fullname) === true) oldUser.u3 = newUser.fullname;
-                    if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(newUser.email) === true) oldUser.u4 = newUser.email;
-                    if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(newUser.about) === true) oldUser.u5 = newUser.about;
-
-                    this.queryManager.createQuery("UPDATE u SET u3 = '" + oldUser.u3 + "', u4 = '" + oldUser.u4 + "', u5 = '" + oldUser.u5 + "' WHERE u1 = " + id + " RETURNING u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about", bbb, () => {
-                        const answer = bbb.arr[0];
-                        response.status(200);
-                        response.end(JSON.stringify(answer));
-                    }, () => {
-                        const answer = {
-                            message: "NO"
-                        };
-                        response.status(409);
-                        response.end(JSON.stringify(answer));
-                    });
-                }
-            }, () => {});
-        });
-    }
-
-    getUserInfo(request, response, nickname) {
-        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-        this.queryManager.createQuery("SELECT u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", aaa, () => {
-            if(aaa.arr.length > 0) {
-                const answer = aaa.arr[0];
-                response.status(200);
-                response.end(JSON.stringify(answer));
-            } else {
-                const answer = {
-                    message: "NO"
-                };
-                response.status(404);
-                response.end(JSON.stringify(answer));
-            }
-        }, () => {});
-    }
-
-    addUser(request, response, nickname) {
-        let bigString = "";
-        request.on('data', (data) => {
-            bigString += data;
-        }).on('end', () => {
-            let user = JSON.parse(bigString);
-            const u2 = nickname;
-            const u3 = user.fullname;
-            const u4 = user.email;
-            const u5 = user.about;
-
-            let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-            let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-
-            this.queryManager.createQuery("INSERT INTO u (u2, u3, u4, u5) VALUES ('" + u2 + "','" + u3 + "','" + u4 + "','" + u5 + "') RETURNING u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about;", aaa, () => {
-                const answer = aaa.arr[0];
-                response.status(201);
-                response.end(JSON.stringify(answer));
-            }, () => {
-                this.queryManager.createQuery("SELECT u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about FROM u WHERE LOWER(u2) = LOWER('" + u2 + "') OR LOWER(u4) = LOWER('" + u4 + "');", bbb, () => {
-                    let answer = bbb.arr;
-                    response.status(409);
-                    response.end(JSON.stringify(answer));
-                }, () => { });
-            });
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = UserWorker;
-
-
-
-/***/ }),
-/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -973,334 +747,111 @@ class ForumWorker {
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Help__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NumberController__ = __webpack_require__(2);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Router__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MyWriter_js__ = __webpack_require__(0);
 
 
 
 
 
 
+class MainClassStarterApp {
+    static importModule(s) {
+        let answer = "";
+        eval("  answer = require('" + s + "');  ");
+        return answer;
+    }
 
-class ThreadWorker {
-    constructor(app, pg, fs, queryManager) {
-        this.app = app;
+    constructor() {
+        let pg = MainClassStarterApp.importModule("pg");
+        let fs = MainClassStarterApp.importModule("fs");
+        let express = MainClassStarterApp.importModule("express");
+
+        this.app = express();
         this.pg = pg;
         this.fs = fs;
-        this.queryManager = queryManager;
+
+        this.router = new __WEBPACK_IMPORTED_MODULE_0__Router__["a" /* default */](this.app, this.pg, this.fs);
+
+        this.allowAllOrigins();
+        this.addListenersToServerQueries();
+        this.startServer();
     }
 
-    changeThreadInfo(request, response, thread_id_slug) {
-        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-        let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+    startServer() {
+        let port = process.env.PORT || 5000;
+        this.app.listen(port);
+        console.log("\nServer works on port " + port);
+        console.log("_____________________________________\n\n")
+    }
 
-        let thread_id = "";
-        let thread_slug = "";
+    allowAllOrigins() {
+        const app = this.app;
+        app.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        });
+    }
 
-        let bigString = "";
-        request.on('data', (data) => {
-            bigString += data;
-        }).on('end', () => {
-            const dataObject = JSON.parse(bigString);
+    addListenersToServerQueries() {
+        const app = this.app;
+        const pg = this.pg;
+        const fs = this.fs;
 
-            let q = " ";
+        this.freeProcess = true;
+        this.mass = [];
 
-            if (__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(thread_id_slug) === false) {
-                // is is slug
-                thread_slug = thread_id_slug;
-                q = " SELECT   t1 AS id   FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "');";
-            } else {
-                // it is id
-                thread_id = thread_id_slug;
-                q = " SELECT   t1 AS id   FROM t WHERE t1 = " + thread_id + " ; ";
-            }
+        let inter = setInterval(() => {
+            if(this.mass.length > 0) {
+                if(this.mass[0].res.finished === true) {
+                    this.mass.splice(0,1);
+                    this.freeProcess = true;
 
-                this.queryManager.createQuery(q, aaa, () => {
-                    if (aaa.arr.length === 0) {
-                        // branch not found
-                        response.status(404);
-                        response.end(JSON.stringify({
-                            message: "NO"
-                        }));
-                    } else {
-                        const branchObject = aaa.arr[0];
-                        const branch_id = branchObject.id;
-
-                        // noinspection JSAnnotator
-                        function isNormal(x) {
-                            if(x === undefined) return false;
-                            if(x === null) return false;
-                            return true;
+                    if(this.freeProcess === true) {
+                        if(this.mass.length > 0) {
+                            this.freeProcess = false;
+                            const type = "POST";
+                            this.router.addQuery(type, this.mass[0].req, this.mass[0].res);
                         }
-
-                        let message = undefined;
-                        let title = undefined;
-
-                        if(isNormal(dataObject.message) === true) message = dataObject.message + "";
-                        if(isNormal(dataObject.title) === true) title = dataObject.title + "";
-
-                        let bigQuery = " ";
-
-                        if(message !== undefined) {
-                            bigQuery = bigQuery + "  UPDATE t SET t7 = '" + message + "' WHERE t1 = " + branch_id + " ;  ";
-                        }
-
-                        if(title !== undefined) {
-                            bigQuery = bigQuery + "  UPDATE t SET t6 = '" + title + "'  WHERE t1 = " + branch_id + " ;  ";
-                        }
-
-                        bigQuery = bigQuery + " ; ";
-
-                        this.queryManager.createQuery(bigQuery, {}, () => {
-
-                            let qq = " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t6 AS title, t9 AS votes, t8 AS slug_chern FROM t WHERE t1 = " + branch_id + "; ";
-
-                            this.queryManager.createQuery(qq, bbb, () => {
-                                const answer = bbb.arr[0];
-
-                                if(__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(answer.slug_chern) === false) {
-                                    answer.slug = answer.slug_chern;
-                                }
-                                response.status(200);
-                                response.end(JSON.stringify(answer));
-
-                            }, () => {
-                                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("ERROR_1");
-                            });
-                        }, () => {
-                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("__UPDATING_ERROR___");
-                        })
                     }
-                }, () => {
-                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("ERROR_3");
-                });
+                }
+            }
+        }, 1);
+
+        app.get('/*', (request, response) => {
+            const type = "GET";
+            this.router.addQuery(type, request, response);
+        });
+
+        app.post('/*', (request, response) => {
+            this.mass.push({
+                req: request,
+                res: response
+            });
+
+            if(this.freeProcess === true) {
+                if(this.mass.length > 0) {
+                    this.freeProcess = false;
+                    const type = "POST";
+                    this.router.addQuery(type, this.mass[0].req, this.mass[0].res);
+                }
+            }
         });
     }
-
-    getThreadInfo(request, response, thread_id_slug) {
-        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-
-        let thread_id = "";
-        let thread_slug = "";
-
-        let q = " ";
-
-        if(__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(thread_id_slug) === false) {
-            // is is slug
-            thread_slug = thread_id_slug;
-            q = q + " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t6 AS title, t9 AS votes, t8 AS slug_chern FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";
-        } else {
-            // it is id
-            thread_id = thread_id_slug;
-            q = q + " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t6 AS title, t9 AS votes, t8 AS slug_chern FROM t WHERE t1 = " + thread_id + "; ";
-        }
-
-        this.queryManager.createQuery(q, aaa, () => {
-            if(aaa.arr.length > 0) {
-                const answer = aaa.arr[0];
-                if(__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(answer.slug_chern) === false) {
-                    answer.slug = answer.slug_chern;
-                }
-                response.status(200);
-                response.end(JSON.stringify(answer));
-            } else {
-                response.status(404);
-                response.end(JSON.stringify({
-                    message: "NO"
-                }));
-            }
-        }, () => {});
-    }
-
-    addThread(request, response, forum_slug) {
-        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-        let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-        let ccc = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-        let eee = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-
-        let bigString = "";
-        request.on('data', (data) => {
-            bigString += data;
-        }).on('end', () => {
-            const thread = JSON.parse(bigString);
-
-            if(thread.created === null || thread.created === undefined) {
-                thread.created = new Date().toISOString() + "";
-            }
-
-            let nickname = thread.author;
-            this.queryManager.createQuery("SELECT u1, u2 FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", aaa, () => {
-                if(aaa.arr.length === 0) {
-                    // user not found
-                    response.status(404);
-                    response.end(JSON.stringify({
-                        message: "NO"
-                    }));
-                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_1");
-                } else {
-                    const user = aaa.arr[0];
-                    const user_id = user.u1;
-                    nickname = user.u2;
-
-                    this.queryManager.createQuery("SELECT f3, f1 FROM f WHERE LOWER(f3) = LOWER('" + forum_slug + "');", bbb, () => {
-                        if(bbb.arr.length === 0) {
-                            // forum not found
-                            response.status(404);
-                            response.end(JSON.stringify({
-                                message: "NO"
-                            }));
-                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_2");
-                        } else {
-                            const forum = bbb.arr[0];
-                            const forum_id = forum.f1;
-                            forum_slug = forum.f3;
-
-                            let q1 = " ";
-
-                            if (thread.slug !== null && thread.slug !== undefined) {
-                                q1 = q1 + " INSERT INTO t (t2, t3, t4, t5, t6, t10, t7, t8) ";
-                                q1 = q1 + " VALUES ('" + nickname + "', " + user_id + ", '" + forum_slug + "', " + forum_id + ", '" + thread.title + "', '" + thread.created + "', '" + thread.message + "', '" + thread.slug + "') RETURNING ";
-                            } else {
-                                    q1 = q1 + " INSERT INTO t (t2, t3, t4, t5, t6, t10, t7) ";
-                                    q1 = q1 + " VALUES ('" + nickname + "', " + user_id + ", '" + forum_slug + "', " + forum_id + ", '" + thread.title + "', '" + thread.created + "', '" + thread.message + "') RETURNING ";
-                                }
-
-                            q1 = q1 + " t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes ;";
-
-                            this.queryManager.createQuery(q1, ccc, () => {
-                                // result thread for answer
-                                const answer = ccc.arr[0];
-
-                                // registrate pair: forum, user
-                                this.queryManager.createQuery("INSERT INTO fp (fp_1, fp_2) VALUES (" + user_id + ", " + forum_id + ");", {} , () => {
-                                    response.status(201);
-                                    response.end(JSON.stringify(answer));
-                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_3");
-                                }, () => {
-                                    response.status(201);
-                                    response.end(JSON.stringify(answer));
-                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_4");
-                                });
-                            }, (err) => {
-                                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(err);
-                                // branch is already exists
-                                this.queryManager.createQuery("SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes FROM t WHERE LOWER(t8) = LOWER('" + thread.slug + "');", eee, () => {
-                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("thread.slug: " + thread.slug);
-                                    const answer = eee.arr[0];
-                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(answer);
-                                    response.status(409);
-                                    response.end(JSON.stringify(answer));
-                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_5");
-                                }, () => {
-                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_6");
-                                });
-                            });
-                        }
-                    }, () => {});
-                }
-            }, () => {});
-        });
-    }
-
-    getThreadsOfForum(request, response, forum_slug, dict) {
-        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-        let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
-
-        this.queryManager.createQuery("SELECT f1 FROM f WHERE LOWER(f3) = LOWER('" + forum_slug + "');", aaa, () => {
-            if(aaa.arr.length === 0) {
-                // forum not found
-                response.status(404);
-                response.end(JSON.stringify({
-                    message: "NO"
-                }));
-            } else {
-                const forum = aaa.arr[0];
-                const forum_id = forum.f1;
-
-                let q = " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes from t  ";
-                q = q + " WHERE t5 = " + forum_id + "  ";
-
-                let sort = '+';
-                if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(dict['desc']) === true) {
-                    if(dict['desc'] === "true") sort = '-';
-                    if(dict['desc'] === "false") sort = '+';
-                }
-
-                let since = null;
-                if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(dict["since"]) === true) {
-                    since = dict["since"] + "";
-                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("SINCE: " + since);
-                }
-
-                if(since !== null) {
-                   if(sort === "+") q = q + "  AND  t10 >= '" + since + "' ";
-                   if(sort === "-") q = q + "  AND  t10 <= '" + since + "' ";
-                }
-
-                if(sort === "+")  q = q + " ORDER BY t10 ASC    ";
-                if(sort === "-")  q = q + " ORDER BY t10  DESC   ";
-
-                if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(dict["limit"]) === true) {
-                   q = q + " LIMIT  " + dict["limit"] + " ";
-                }
-
-                q = q + " ; ";
-
-                this.queryManager.createQuery(q, bbb, () => {
-                    response.status(200);
-                    response.end(JSON.stringify(bbb.arr));
-                }, (err) => {
-                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(err);
-                });
-            }
-        }, () => {});
-    }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = ThreadWorker;
 
+const mainObj = new MainClassStarterApp();
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
-
-
-
-
-class Dictionary {
-    constructor(content) {
-        this.content = content;
-    }
-
-    getDictionary() {
-        let dict = {};
-
-        let mass = this.content.split("&");
-        for(let i = 0; i < mass.length; i++) {
-            let s = mass[i];
-            let arr = s.split("=");
-            let key = arr[0] + "";
-            let value = arr[1] + "";
-            dict[key] = decodeURIComponent(value);
-        }
-
-        return dict;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Dictionary;
-
-
-
-/***/ }),
-/* 12 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1718,126 +1269,7 @@ class PostWorker {
 
 
 /***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NumberController__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Help__ = __webpack_require__(1);
-
-
-
-
-
-
-
-class VoteWorker {
-    constructor(app, pg, fs, queryManager) {
-        this.app = app;
-        this.pg = pg;
-        this.fs = fs;
-        this.queryManager = queryManager;
-
-        this.count = 0;
-    }
-
-    addVote(request, response, thread_id_slug) {
-        let aaa = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
-        let bbb = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
-        let ccc = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
-        let kkk = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
-        let xxx = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
-
-        let bigString = "";
-        request.on('data', (data) => {
-            bigString += data;
-        }).on('end', () => {
-            const vote = JSON.parse(bigString);
-
-            let thread_id = "";
-            let thread_slug = "";
-
-            let q = "  ";
-
-            if (__WEBPACK_IMPORTED_MODULE_1__NumberController__["a" /* default */].isNumber(thread_id_slug) === false) {
-                // is is slug
-                thread_slug = thread_id_slug;
-                q = q + " SELECT t1, t8 FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";
-            } else {
-                // it is id
-                thread_id = thread_id_slug;
-                q = q + " SELECT t1, t8 FROM t WHERE t1 = " + thread_id + "; ";
-            }
-
-            this.queryManager.createQuery(q, aaa, () => {
-                if(aaa.arr.length === 0) {
-                    // ветка не найдена
-                    response.status(404);
-                    response.end(JSON.stringify({
-                        message: "NO"
-                    }));
-                } else {
-                    const thread = aaa.arr[0];
-
-                    thread_id = thread.t1;
-                    thread_slug = thread.t8;
-
-                    let nickname = vote.nickname;
-
-                    this.queryManager.createQuery("SELECT u1, u2 FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", bbb, () => {
-                        if(bbb.arr.length === 0) {
-                            // user not found
-                            response.status(404);
-                            response.end(JSON.stringify({
-                                message: "NO_USER"
-                            }));
-                        } else {
-                            const user = bbb.arr[0];
-
-                            let user_name = user.u2;
-                            let user_id = user.u1;
-
-                            // голосовал ли пользователь до этого
-                            this.queryManager.createQuery("SELECT v1 FROM v WHERE v2 = " + user_id + " AND v3 = " + thread_id + ";", ccc, () => {
-                                if(ccc.arr.length === 0) {
-                                    // пользователь не голосовал
-                                    this.queryManager.createQuery("INSERT INTO v (v2, v3, v4) VALUES (" + user_id + ", " + thread_id + ", " + vote.voice + ");", xxx, () => {
-                                        this.queryManager.createQuery("SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes FROM t WHERE t1 = " + thread_id + ";", kkk, () => {
-                                            const answer = kkk.arr[0];
-                                            response.status(200);
-                                            response.end(JSON.stringify(answer));
-                                        }, (err) => {
-                                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(err);
-                                        });
-                                    }, () => {});
-                                } else {
-                                    // пользователь уже голосовал
-                                    const v1 = ccc.arr[0].v1;
-                                    this.queryManager.createQuery("UPDATE v SET v4 = " + vote.voice + " WHERE v1 = " + v1 + ";", {}, () => {
-                                        this.queryManager.createQuery("SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes FROM t WHERE t1 = " + thread_id + ";", kkk, () => {
-                                            const answer = kkk.arr[0];
-                                            response.status(200);
-                                            response.end(JSON.stringify(answer));
-                                        }, () => {
-                                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("nnn");
-                                        });
-                                    }, () => {});
-                                }
-                            }, () => {});
-                        }
-                    }, () => {});
-                }
-            }, () => {});
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = VoteWorker;
-
-
-
-/***/ }),
-/* 14 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2050,7 +1482,57 @@ class PostsPrinter {
 
 
 /***/ }),
-/* 15 */
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
+
+
+
+
+class QueryManager {
+    constructor(app, pg, fs) {
+        this.app = app;
+        this.pg = pg;
+        this.fs = fs;
+
+        const pool = new pg.Pool({
+            user: 'postgres',
+            host: 'localhost',
+            database: 'bbb_12345',
+            password: '12345',
+            port: 5432
+        });
+
+        pool.on('error', (err, client) => {
+            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("_____POOL_____ERROR_____");
+        });
+
+        this.pool = pool;
+    }
+
+    createQuery(queryString, resultObject, callbackNormal, callbackError) {
+        const pool = this.pool;
+
+        pool.query(queryString, [], (err, res) => {
+            if(err !== null) {
+                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("callbackError");
+                callbackError(err);
+            } else {
+                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("callbackNormal");
+                resultObject.arr = res.rows;
+                callbackNormal();
+            }
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = QueryManager;
+
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2117,6 +1599,527 @@ class ServiceWorker {
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = ServiceWorker;
+
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Help__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NumberController__ = __webpack_require__(2);
+
+
+
+
+
+
+
+class ThreadWorker {
+    constructor(app, pg, fs, queryManager) {
+        this.app = app;
+        this.pg = pg;
+        this.fs = fs;
+        this.queryManager = queryManager;
+    }
+
+    changeThreadInfo(request, response, thread_id_slug) {
+        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+        let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+
+        let thread_id = "";
+        let thread_slug = "";
+
+        let bigString = "";
+        request.on('data', (data) => {
+            bigString += data;
+        }).on('end', () => {
+            const dataObject = JSON.parse(bigString);
+
+            let q = " ";
+
+            if (__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(thread_id_slug) === false) {
+                // is is slug
+                thread_slug = thread_id_slug;
+                q = " SELECT   t1 AS id   FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "');";
+            } else {
+                // it is id
+                thread_id = thread_id_slug;
+                q = " SELECT   t1 AS id   FROM t WHERE t1 = " + thread_id + " ; ";
+            }
+
+                this.queryManager.createQuery(q, aaa, () => {
+                    if (aaa.arr.length === 0) {
+                        // branch not found
+                        response.status(404);
+                        response.end(JSON.stringify({
+                            message: "NO"
+                        }));
+                    } else {
+                        const branchObject = aaa.arr[0];
+                        const branch_id = branchObject.id;
+
+                        // noinspection JSAnnotator
+                        function isNormal(x) {
+                            if(x === undefined) return false;
+                            if(x === null) return false;
+                            return true;
+                        }
+
+                        let message = undefined;
+                        let title = undefined;
+
+                        if(isNormal(dataObject.message) === true) message = dataObject.message + "";
+                        if(isNormal(dataObject.title) === true) title = dataObject.title + "";
+
+                        let bigQuery = " ";
+
+                        if(message !== undefined) {
+                            bigQuery = bigQuery + "  UPDATE t SET t7 = '" + message + "' WHERE t1 = " + branch_id + " ;  ";
+                        }
+
+                        if(title !== undefined) {
+                            bigQuery = bigQuery + "  UPDATE t SET t6 = '" + title + "'  WHERE t1 = " + branch_id + " ;  ";
+                        }
+
+                        bigQuery = bigQuery + " ; ";
+
+                        this.queryManager.createQuery(bigQuery, {}, () => {
+
+                            let qq = " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t6 AS title, t9 AS votes, t8 AS slug_chern FROM t WHERE t1 = " + branch_id + "; ";
+
+                            this.queryManager.createQuery(qq, bbb, () => {
+                                const answer = bbb.arr[0];
+
+                                if(__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(answer.slug_chern) === false) {
+                                    answer.slug = answer.slug_chern;
+                                }
+                                response.status(200);
+                                response.end(JSON.stringify(answer));
+
+                            }, () => {
+                                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("ERROR_1");
+                            });
+                        }, () => {
+                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("__UPDATING_ERROR___");
+                        })
+                    }
+                }, () => {
+                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("ERROR_3");
+                });
+        });
+    }
+
+    getThreadInfo(request, response, thread_id_slug) {
+        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+
+        let thread_id = "";
+        let thread_slug = "";
+
+        let q = " ";
+
+        if(__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(thread_id_slug) === false) {
+            // is is slug
+            thread_slug = thread_id_slug;
+            q = q + " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t6 AS title, t9 AS votes, t8 AS slug_chern FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";
+        } else {
+            // it is id
+            thread_id = thread_id_slug;
+            q = q + " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t6 AS title, t9 AS votes, t8 AS slug_chern FROM t WHERE t1 = " + thread_id + "; ";
+        }
+
+        this.queryManager.createQuery(q, aaa, () => {
+            if(aaa.arr.length > 0) {
+                const answer = aaa.arr[0];
+                if(__WEBPACK_IMPORTED_MODULE_2__NumberController__["a" /* default */].isNumber(answer.slug_chern) === false) {
+                    answer.slug = answer.slug_chern;
+                }
+                response.status(200);
+                response.end(JSON.stringify(answer));
+            } else {
+                response.status(404);
+                response.end(JSON.stringify({
+                    message: "NO"
+                }));
+            }
+        }, () => {});
+    }
+
+    addThread(request, response, forum_slug) {
+        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+        let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+        let ccc = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+        let eee = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+
+        let bigString = "";
+        request.on('data', (data) => {
+            bigString += data;
+        }).on('end', () => {
+            const thread = JSON.parse(bigString);
+
+            if(thread.created === null || thread.created === undefined) {
+                thread.created = new Date().toISOString() + "";
+            }
+
+            let nickname = thread.author;
+            this.queryManager.createQuery("SELECT u1, u2 FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", aaa, () => {
+                if(aaa.arr.length === 0) {
+                    // user not found
+                    response.status(404);
+                    response.end(JSON.stringify({
+                        message: "NO"
+                    }));
+                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_1");
+                } else {
+                    const user = aaa.arr[0];
+                    const user_id = user.u1;
+                    nickname = user.u2;
+
+                    this.queryManager.createQuery("SELECT f3, f1 FROM f WHERE LOWER(f3) = LOWER('" + forum_slug + "');", bbb, () => {
+                        if(bbb.arr.length === 0) {
+                            // forum not found
+                            response.status(404);
+                            response.end(JSON.stringify({
+                                message: "NO"
+                            }));
+                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_2");
+                        } else {
+                            const forum = bbb.arr[0];
+                            const forum_id = forum.f1;
+                            forum_slug = forum.f3;
+
+                            let q1 = " ";
+
+                            if (thread.slug !== null && thread.slug !== undefined) {
+                                q1 = q1 + " INSERT INTO t (t2, t3, t4, t5, t6, t10, t7, t8) ";
+                                q1 = q1 + " VALUES ('" + nickname + "', " + user_id + ", '" + forum_slug + "', " + forum_id + ", '" + thread.title + "', '" + thread.created + "', '" + thread.message + "', '" + thread.slug + "') RETURNING ";
+                            } else {
+                                    q1 = q1 + " INSERT INTO t (t2, t3, t4, t5, t6, t10, t7) ";
+                                    q1 = q1 + " VALUES ('" + nickname + "', " + user_id + ", '" + forum_slug + "', " + forum_id + ", '" + thread.title + "', '" + thread.created + "', '" + thread.message + "') RETURNING ";
+                                }
+
+                            q1 = q1 + " t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes ;";
+
+                            this.queryManager.createQuery(q1, ccc, () => {
+                                // result thread for answer
+                                const answer = ccc.arr[0];
+
+                                // registrate pair: forum, user
+                                this.queryManager.createQuery("INSERT INTO fp (fp_1, fp_2) VALUES (" + user_id + ", " + forum_id + ");", {} , () => {
+                                    response.status(201);
+                                    response.end(JSON.stringify(answer));
+                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_3");
+                                }, () => {
+                                    response.status(201);
+                                    response.end(JSON.stringify(answer));
+                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_4");
+                                });
+                            }, (err) => {
+                                __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(err);
+                                // branch is already exists
+                                this.queryManager.createQuery("SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes FROM t WHERE LOWER(t8) = LOWER('" + thread.slug + "');", eee, () => {
+                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("thread.slug: " + thread.slug);
+                                    const answer = eee.arr[0];
+                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(answer);
+                                    response.status(409);
+                                    response.end(JSON.stringify(answer));
+                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_5");
+                                }, () => {
+                                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("P_6");
+                                });
+                            });
+                        }
+                    }, () => {});
+                }
+            }, () => {});
+        });
+    }
+
+    getThreadsOfForum(request, response, forum_slug, dict) {
+        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+        let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+
+        this.queryManager.createQuery("SELECT f1 FROM f WHERE LOWER(f3) = LOWER('" + forum_slug + "');", aaa, () => {
+            if(aaa.arr.length === 0) {
+                // forum not found
+                response.status(404);
+                response.end(JSON.stringify({
+                    message: "NO"
+                }));
+            } else {
+                const forum = aaa.arr[0];
+                const forum_id = forum.f1;
+
+                let q = " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes from t  ";
+                q = q + " WHERE t5 = " + forum_id + "  ";
+
+                let sort = '+';
+                if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(dict['desc']) === true) {
+                    if(dict['desc'] === "true") sort = '-';
+                    if(dict['desc'] === "false") sort = '+';
+                }
+
+                let since = null;
+                if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(dict["since"]) === true) {
+                    since = dict["since"] + "";
+                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("SINCE: " + since);
+                }
+
+                if(since !== null) {
+                   if(sort === "+") q = q + "  AND  t10 >= '" + since + "' ";
+                   if(sort === "-") q = q + "  AND  t10 <= '" + since + "' ";
+                }
+
+                if(sort === "+")  q = q + " ORDER BY t10 ASC    ";
+                if(sort === "-")  q = q + " ORDER BY t10  DESC   ";
+
+                if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(dict["limit"]) === true) {
+                   q = q + " LIMIT  " + dict["limit"] + " ";
+                }
+
+                q = q + " ; ";
+
+                this.queryManager.createQuery(q, bbb, () => {
+                    response.status(200);
+                    response.end(JSON.stringify(bbb.arr));
+                }, (err) => {
+                    __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(err);
+                });
+            }
+        }, () => {});
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ThreadWorker;
+
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Help__ = __webpack_require__(1);
+
+
+
+
+
+
+class UserWorker {
+    constructor(app, pg, fs, queryManager) {
+        this.app = app;
+        this.pg = pg;
+        this.fs = fs;
+        this.queryManager = queryManager;
+    }
+
+    changeUserInfo(request, response, nickname) {
+        let bigString = "";
+        request.on('data', (data) => {
+            bigString += data;
+        }).on('end', () => {
+            let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+            let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+            this.queryManager.createQuery("SELECT * FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", aaa, () => {
+                if(aaa.arr.length === 0) {
+                    const answer = {
+                        message: "NO"
+                    };
+                    response.status(404);
+                    response.end(JSON.stringify(answer));
+                } else {
+                    const newUser = JSON.parse(bigString);
+                    const oldUser = aaa.arr[0];
+                    const id = oldUser.u1;
+
+                    if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(newUser.fullname) === true) oldUser.u3 = newUser.fullname;
+                    if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(newUser.email) === true) oldUser.u4 = newUser.email;
+                    if(__WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].exists(newUser.about) === true) oldUser.u5 = newUser.about;
+
+                    this.queryManager.createQuery("UPDATE u SET u3 = '" + oldUser.u3 + "', u4 = '" + oldUser.u4 + "', u5 = '" + oldUser.u5 + "' WHERE u1 = " + id + " RETURNING u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about", bbb, () => {
+                        const answer = bbb.arr[0];
+                        response.status(200);
+                        response.end(JSON.stringify(answer));
+                    }, () => {
+                        const answer = {
+                            message: "NO"
+                        };
+                        response.status(409);
+                        response.end(JSON.stringify(answer));
+                    });
+                }
+            }, () => {});
+        });
+    }
+
+    getUserInfo(request, response, nickname) {
+        let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+        this.queryManager.createQuery("SELECT u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", aaa, () => {
+            if(aaa.arr.length > 0) {
+                const answer = aaa.arr[0];
+                response.status(200);
+                response.end(JSON.stringify(answer));
+            } else {
+                const answer = {
+                    message: "NO"
+                };
+                response.status(404);
+                response.end(JSON.stringify(answer));
+            }
+        }, () => {});
+    }
+
+    addUser(request, response, nickname) {
+        let bigString = "";
+        request.on('data', (data) => {
+            bigString += data;
+        }).on('end', () => {
+            let user = JSON.parse(bigString);
+            const u2 = nickname;
+            const u3 = user.fullname;
+            const u4 = user.email;
+            const u5 = user.about;
+
+            let aaa = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+            let bbb = __WEBPACK_IMPORTED_MODULE_1__Help__["a" /* default */].objArr();
+
+            this.queryManager.createQuery("INSERT INTO u (u2, u3, u4, u5) VALUES ('" + u2 + "','" + u3 + "','" + u4 + "','" + u5 + "') RETURNING u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about;", aaa, () => {
+                const answer = aaa.arr[0];
+                response.status(201);
+                response.end(JSON.stringify(answer));
+            }, () => {
+                this.queryManager.createQuery("SELECT u2 AS nickname, u3 AS fullname, u4 AS email, u5 AS about FROM u WHERE LOWER(u2) = LOWER('" + u2 + "') OR LOWER(u4) = LOWER('" + u4 + "');", bbb, () => {
+                    let answer = bbb.arr;
+                    response.status(409);
+                    response.end(JSON.stringify(answer));
+                }, () => { });
+            });
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = UserWorker;
+
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NumberController__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Help__ = __webpack_require__(1);
+
+
+
+
+
+
+
+class VoteWorker {
+    constructor(app, pg, fs, queryManager) {
+        this.app = app;
+        this.pg = pg;
+        this.fs = fs;
+        this.queryManager = queryManager;
+
+        this.count = 0;
+    }
+
+    addVote(request, response, thread_id_slug) {
+        let aaa = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
+        let bbb = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
+        let ccc = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
+        let kkk = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
+        let xxx = __WEBPACK_IMPORTED_MODULE_2__Help__["a" /* default */].objArr();
+
+        let bigString = "";
+        request.on('data', (data) => {
+            bigString += data;
+        }).on('end', () => {
+            const vote = JSON.parse(bigString);
+
+            let thread_id = "";
+            let thread_slug = "";
+
+            let q = "  ";
+
+            if (__WEBPACK_IMPORTED_MODULE_1__NumberController__["a" /* default */].isNumber(thread_id_slug) === false) {
+                // is is slug
+                thread_slug = thread_id_slug;
+                q = q + " SELECT t1, t8 FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";
+            } else {
+                // it is id
+                thread_id = thread_id_slug;
+                q = q + " SELECT t1, t8 FROM t WHERE t1 = " + thread_id + "; ";
+            }
+
+            this.queryManager.createQuery(q, aaa, () => {
+                if(aaa.arr.length === 0) {
+                    // ветка не найдена
+                    response.status(404);
+                    response.end(JSON.stringify({
+                        message: "NO"
+                    }));
+                } else {
+                    const thread = aaa.arr[0];
+
+                    thread_id = thread.t1;
+                    thread_slug = thread.t8;
+
+                    let nickname = vote.nickname;
+
+                    this.queryManager.createQuery("SELECT u1, u2 FROM u WHERE LOWER(u2) = LOWER('" + nickname + "');", bbb, () => {
+                        if(bbb.arr.length === 0) {
+                            // user not found
+                            response.status(404);
+                            response.end(JSON.stringify({
+                                message: "NO_USER"
+                            }));
+                        } else {
+                            const user = bbb.arr[0];
+
+                            let user_name = user.u2;
+                            let user_id = user.u1;
+
+                            // голосовал ли пользователь до этого
+                            this.queryManager.createQuery("SELECT v1 FROM v WHERE v2 = " + user_id + " AND v3 = " + thread_id + ";", ccc, () => {
+                                if(ccc.arr.length === 0) {
+                                    // пользователь не голосовал
+                                    this.queryManager.createQuery("INSERT INTO v (v2, v3, v4) VALUES (" + user_id + ", " + thread_id + ", " + vote.voice + ");", xxx, () => {
+                                        this.queryManager.createQuery("SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes FROM t WHERE t1 = " + thread_id + ";", kkk, () => {
+                                            const answer = kkk.arr[0];
+                                            response.status(200);
+                                            response.end(JSON.stringify(answer));
+                                        }, (err) => {
+                                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log(err);
+                                        });
+                                    }, () => {});
+                                } else {
+                                    // пользователь уже голосовал
+                                    const v1 = ccc.arr[0].v1;
+                                    this.queryManager.createQuery("UPDATE v SET v4 = " + vote.voice + " WHERE v1 = " + v1 + ";", {}, () => {
+                                        this.queryManager.createQuery("SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes FROM t WHERE t1 = " + thread_id + ";", kkk, () => {
+                                            const answer = kkk.arr[0];
+                                            response.status(200);
+                                            response.end(JSON.stringify(answer));
+                                        }, () => {
+                                            __WEBPACK_IMPORTED_MODULE_0__MyWriter_js__["a" /* default */].log("nnn");
+                                        });
+                                    }, () => {});
+                                }
+                            }, () => {});
+                        }
+                    }, () => {});
+                }
+            }, () => {});
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = VoteWorker;
 
 
 

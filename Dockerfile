@@ -37,7 +37,13 @@ USER root
 #
 
 # Установка Nodejs & npm
-RUN apt-get install -y nodejs nodejs-legacy npm
+# install from nodesource using apt-get
+# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
+RUN apt-get update && apt-get install -y \
+curl
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
+RUN apt-get install -y nodejs
+
 
 # Копируем исходный код в Docker-контейнер
 ENV APP /root/app
@@ -46,6 +52,7 @@ ADD ./ $APP
 # Собираем и устанавливаем пакет
 WORKDIR $APP
 RUN npm install
+RUN npm run webpack-prod
 
 # Объявлем порт сервера
 EXPOSE 5000
@@ -53,4 +60,4 @@ EXPOSE 5000
 #
 # Запускаем PostgreSQL и сервер
 #
-CMD service postgresql start && node index.js
+CMD service postgresql start  && npm start

@@ -1,16 +1,17 @@
 "use strict";
 
+import MyWriter from "./MyWriter.js";
 
-import QueryManager from "../QueryManager";
-import DBiniter from "../DBiniter";
-import UserWorker from "../UserWorker";
-import ForumWorker from "../ForumWorker";
-import ThreadWorker from "../ThreadWorker";
-import Dictionary from "../Dictionary";
-import PostWorker from "../PostWorker";
-import VoteWorker from "../VoteWorker";
-import PostsPrinter from "../PostsPrinter";
-import ServiceWorker from "../ServiceWorker";
+import QueryManager from "./QueryManager";
+import DBiniter from "./DBiniter";
+import UserWorker from "./UserWorker";
+import ForumWorker from "./ForumWorker";
+import ThreadWorker from "./ThreadWorker";
+import Dictionary from "./Dictionary";
+import PostWorker from "./PostWorker";
+import VoteWorker from "./VoteWorker";
+import PostsPrinter from "./PostsPrinter";
+import ServiceWorker from "./ServiceWorker";
 
 export default class Router {
     constructor(app, pg, fs) {
@@ -186,6 +187,7 @@ export default class Router {
 
             if(mass[1] === "thread") {
                 if(mass[3] === "details") {
+                    MyWriter.log("CHANGE_THREAD_INFO_NEED");
                     const thread_slug_id = mass[2];
                     this.threadWorker.changeThreadInfo(request, response, thread_slug_id);
                     return;
@@ -194,6 +196,7 @@ export default class Router {
 
             if(mass[1] === "post") {
                 if(mass[3] === "details") {
+                    MyWriter.log("__POST_____CHANGE__MESSAGE__INFO__");
                     const post_id = mass[2];
                     this.postWorker.changePostMessage(request, response, post_id);
                     return;
