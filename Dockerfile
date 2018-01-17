@@ -8,7 +8,7 @@ RUN apt-get -y update
 # Установка postgresql
 ENV PGVER 9.5
 RUN apt-get install -y postgresql-$PGVER
-
+RUN apt-get install -y python-psycopg2
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-$PGVER`` package when it was ``apt-get installed``
 USER postgres
 
@@ -36,7 +36,8 @@ VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 # Back to the root user
 USER root
-
+RUN apt-get install libpq-dev -y
+RUN apt-get install build-essential -y
 #
 # Сборка проекта
 #

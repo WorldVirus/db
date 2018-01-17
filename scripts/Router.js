@@ -4,14 +4,14 @@ import MyWriter from "./MyWriter.js";
 
 import QueryManager from "./QueryManager";
 import DBiniter from "./DBiniter";
-import UserWorker from "./controllers/UserWorker";
-import ForumWorker from "./controllers/ForumWorker";
-import ThreadWorker from "./controllers/ThreadWorker";
+import UserWorker from "./controllers/user";
+import ForumWorker from "./controllers/forum";
+import ThreadWorker from "./controllers/thread";
 import Dictionary from "./Dictionary";
-import PostWorker from "./controllers/PostWorker";
-import VoteWorker from "./controllers/VoteWorker";
+import PostWorker from "./controllers/post";
+import VoteWorker from "./controllers/vote";
 import PostsPrinter from "./PostsPrinter";
-import ServiceWorker from "./controllers/ServiceWorker";
+import ServiceWorker from "./controllers/service";
 
 export default class Router {
     constructor(app, pg, fs) {
