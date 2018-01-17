@@ -3,7 +3,6 @@
 import MyWriter from "./MyWriter.js";
 
 import Help from "./Help";
-import NumberController from "./NumberController";
 
 export default class PostsPrinter {
     constructor(app, pg, fs, queryManager) {
@@ -21,7 +20,8 @@ export default class PostsPrinter {
 
         let q = " ";
 
-        if(NumberController.isNumber(thread_id_slug) === false) {
+        if (parseInt(thread_id_slug) + "" !== thread_id_slug + "") {
+
             // is is slug
             thread_slug = thread_id_slug;
             q = q + " SELECT t1, t8 FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";

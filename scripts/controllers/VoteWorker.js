@@ -2,7 +2,6 @@
 
 import MyWriter from "../MyWriter.js";
 
-import NumberController from "../NumberController";
 import Help from "../Help";
 
 export default class VoteWorker {
@@ -33,7 +32,7 @@ export default class VoteWorker {
 
             let q = "  ";
 
-            if (NumberController.isNumber(thread_id_slug) === false) {
+            if(parseInt(thread_id_slug) + "" !== thread_id_slug + "") {
                 // is is slug
                 thread_slug = thread_id_slug;
                 q = q + " SELECT t1, t8 FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";

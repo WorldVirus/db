@@ -1,20 +1,13 @@
 "use strict";
 
 import Router from "./Router";
-import Koa from 'koa'
-import MyWriter from "./MyWriter.js";
+import express from "express";
+import pg from "pg";
+import fs from 'fs';
 
 class MainClassStarterApp {
-    static importModule(s) {
-        let answer = "";
-        eval("  answer = require('" + s + "');  ");
-        return answer;
-    }
 
     constructor() {
-        let pg = MainClassStarterApp.importModule("pg");
-        let fs = MainClassStarterApp.importModule("fs");
-        let express = MainClassStarterApp.importModule("express");
 
         this.app = express();
         this.pg = pg;

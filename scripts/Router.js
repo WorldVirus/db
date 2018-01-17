@@ -47,13 +47,14 @@ export default class Router {
         const parts = (request.url + "").split("?");
 
         const url = parts[0] + "";
+      //  console.log(url);
         let mass = url.split("/");
-
+//console.log("mas: " + mass);
         let tail = "";
         if(parts.length > 1) {
             tail = parts[1] + "";
         }
-
+//let test = mas[1]+mas[2]+mas[3];
         ///////////////////////////////////////////////////////////
 
         if(type === "GET") {
@@ -72,64 +73,56 @@ export default class Router {
                 }
             }
 
-            if(mass[1] === "user") {
-                if(mass[3] === "profile") {
+            if(mass[1] === "user" && mass[3] === "profile") {
                     const nickname = mass[2];
                     this.userWorker.getUserInfo(request, response, nickname);
                     return;
-                }
+
             }
 
-            if(mass[1] === "forum") {
-                if(mass[3] === "details") {
+            if(mass[1] === "forum" && mass[3] === "details") {
                     const slug = mass[2];
                     this.forumWorker.getForumInfo(request, response, slug);
                     return;
-                }
+
             }
 
-            if(mass[1] === "forum") {
-                if(mass[3] === "threads") {
+            if(mass[1] === "forum" && mass[3] === "threads") {
+
                     const forum_slug = mass[2];
                     const dict = new Dictionary(tail).getDictionary();
                     this.threadWorker.getThreadsOfForum(request, response, forum_slug, dict);
                     return;
-                }
+
             }
 
-            if(mass[1] === "thread") {
-                if(mass[3] === "details") {
+            if(mass[1] === "thread" && mass[3] === "details") {
                     const thread_slug_id = mass[2];
                     this.threadWorker.getThreadInfo(request, response, thread_slug_id);
                     return;
-                }
             }
 
-            if(mass[1] === "thread") {
-                if(mass[3] === "posts") {
+            if(mass[1] === "thread" && mass[3] === "posts") {
                     const thread_id_slug = mass[2];
                     const dict = new Dictionary(tail).getDictionary();
                     this.postsPrinter.printPosts(request, response, thread_id_slug, dict);
                     return;
-                }
             }
 
-            if(mass[1] === "forum") {
-                if(mass[3] === "users") {
+            if(mass[1] === "forum" && mass[3] === "users") {
                     const forum_slug = mass[2];
                     const dict = new Dictionary(tail).getDictionary();
                     this.forumWorker.getUsersOfForum(request, response, forum_slug, dict);
                     return;
-                }
+
             }
 
-            if(mass[1] === "post") {
-                if(mass[3] === "details") {
+            if(mass[1] === "post" && mass[3] === "details") {
                     const post_id = mass[2];
                     const dict = new Dictionary(tail).getDictionary();
                     this.postWorker.getPostDetails(request, response, post_id, dict);
                     return;
-                }
+
             }
 
             if(url === "/service/status") {
@@ -140,20 +133,17 @@ export default class Router {
 
         if(type === "POST") {
 
-            if(mass[1] === "user") {
-                if(mass[3] === "create") {
+            if(mass[1] === "user" && mass[3] === "create") {
                     const nickname = mass[2];
                     this.userWorker.addUser(request, response, nickname);
                     return;
-                }
             }
 
-            if(mass[1] === "user") {
-                if(mass[3] === "profile") {
+            if(mass[1] === "user" && mass[3] === "profile") {
                     const nickname = mass[2];
                     this.userWorker.changeUserInfo(request, response, nickname);
                     return;
-                }
+
             }
 
             if(url === "/forum/create") {
@@ -161,46 +151,38 @@ export default class Router {
                 return;
             }
 
-            if(mass[1] === "forum") {
-                if(mass[3] === "create") {
+            if(mass[1] === "forum" && mass[3] === "create") {
                     const forum_slug = mass[2];
                     this.threadWorker.addThread(request, response, forum_slug);
                     return;
-                }
+
             }
 
-            if(mass[1] === "thread") {
-                if(mass[3] === "create") {
+            if(mass[1] === "thread" && mass[3] === "create") {
                     const thread_slug = mass[2];
                     this.postWorker.addPostsArray(request, response, thread_slug);
                     return;
-                }
             }
 
-            if(mass[1] === "thread") {
-                if(mass[3] === "vote") {
+            if(mass[1] === "thread" && mass[3] === "vote") {
                     const thread_id_slug = mass[2];
                     this.voteWorker.addVote(request, response, thread_id_slug);
                     return;
-                }
             }
 
-            if(mass[1] === "thread") {
-                if(mass[3] === "details") {
+            if(mass[1] === "thread" && mass[3] === "details") {
                     MyWriter.log("CHANGE_THREAD_INFO_NEED");
                     const thread_slug_id = mass[2];
                     this.threadWorker.changeThreadInfo(request, response, thread_slug_id);
                     return;
-                }
+
             }
 
-            if(mass[1] === "post") {
-                if(mass[3] === "details") {
+            if(mass[1] === "post" && mass[3] === "details") {
                     MyWriter.log("__POST_____CHANGE__MESSAGE__INFO__");
                     const post_id = mass[2];
                     this.postWorker.changePostMessage(request, response, post_id);
                     return;
-                }
             }
 
             if(url === "/service/clear") {

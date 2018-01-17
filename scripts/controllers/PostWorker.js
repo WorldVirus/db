@@ -2,7 +2,6 @@
 
 import MyWriter from "../MyWriter.js";
 
-import NumberController from "../NumberController";
 import Help from "../Help";
 
 export default class PostWorker {
@@ -105,8 +104,9 @@ export default class PostWorker {
                             const forum = ccc.arr[0];
                             const thread = kkk.arr[0];
 
-                            if(NumberController.isNumber(thread.slug_chern) === false) {
+                            if(parseInt(thread.slug_chern)  !== thread.slug_chern  ) {
                                 thread.slug = thread.slug_chern;
+
                             }
 
                             let answer = {};
@@ -152,7 +152,7 @@ export default class PostWorker {
 
             let q = " ";
 
-            if(NumberController.isNumber(thread_id_slug) === false) {
+            if(parseInt(thread_id_slug) + "" !== thread_id_slug + "") {
                 // is is slug
                 thread_slug = thread_id_slug;
                 q = q + " SELECT t1, t8, t4, t5 FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";

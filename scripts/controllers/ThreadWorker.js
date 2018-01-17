@@ -3,7 +3,6 @@
 import MyWriter from "../MyWriter.js";
 
 import Help from "../Help";
-import NumberController from "../NumberController";
 
 export default class ThreadWorker {
     constructor(app, pg, fs, queryManager) {
@@ -28,7 +27,7 @@ export default class ThreadWorker {
 
             let q = " ";
 
-            if (NumberController.isNumber(thread_id_slug) === false) {
+            if (parseInt(thread_id_slug) + "" !== thread_id_slug + "") {
                 // is is slug
                 thread_slug = thread_id_slug;
                 q = " SELECT   t1 AS id   FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "');";
@@ -80,8 +79,7 @@ export default class ThreadWorker {
 
                             this.queryManager.createQuery(qq, bbb, () => {
                                 const answer = bbb.arr[0];
-
-                                if(NumberController.isNumber(answer.slug_chern) === false) {
+                                if(parseInt(answer.slug_chern) + "" !== answer.slug_chern + "") {
                                     answer.slug = answer.slug_chern;
                                 }
                                 response.status(200);
@@ -108,7 +106,7 @@ export default class ThreadWorker {
 
         let q = " ";
 
-        if(NumberController.isNumber(thread_id_slug) === false) {
+        if(parseInt(thread_id_slug) + "" !== thread_id_slug) {
             // is is slug
             thread_slug = thread_id_slug;
             q = q + " SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t6 AS title, t9 AS votes, t8 AS slug_chern FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "'); ";
@@ -121,7 +119,7 @@ export default class ThreadWorker {
         this.queryManager.createQuery(q, aaa, () => {
             if(aaa.arr.length > 0) {
                 const answer = aaa.arr[0];
-                if(NumberController.isNumber(answer.slug_chern) === false) {
+                if(parseInt(answer.slug_chern) + "" !== answer.slug_chern + "") {
                     answer.slug = answer.slug_chern;
                 }
                 response.status(200);
