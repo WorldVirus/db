@@ -1,5 +1,6 @@
 "use strict";
 
+import MyWriter from "./MyWriter.js";
 
 import Help from "./Help";
 
@@ -85,7 +86,7 @@ export default class PostsPrinter {
         query = query + " SELECT p1 FROM p ";
         query = query + " WHERE p4 = " + thread_id + " AND p7 = 0 ";
 
-        if(since !== null) {
+        if(since != null) {
             if(sort === "+") query = query + " AND p12 > (SELECT p12 FROM p WHERE p1 = " + since + ") ";
             if(sort === "-") query = query + " AND p12 < (SELECT p12 FROM p WHERE p1 = " + since + ") ";
         }
@@ -109,10 +110,12 @@ export default class PostsPrinter {
 
         this.queryManager.createQuery(query, aaa, () => {
             let answer = aaa.arr;
+            MyWriter.log(answer);
             response.status(200);
             response.end(JSON.stringify(answer));
         }, (e) => {
-
+            MyWriter.log("XXXXXXXXXX");
+            MyWriter.log(e);
         })
     }
 
@@ -147,13 +150,16 @@ export default class PostsPrinter {
         }
 
         query += " ; ";
+        MyWriter.log(query);
 
         this.queryManager.createQuery(query, aaa, () => {
             let answer = aaa.arr;
+            MyWriter.log("Array_len: " + answer.length);
             response.status(200);
             response.end(JSON.stringify(answer));
         }, (e) => {
-
+            MyWriter.log("EEEEEEEE");
+            MyWriter.log(e);
         });
 
     }
@@ -181,6 +187,7 @@ export default class PostsPrinter {
 
         query = query + " ; ";
 
+        MyWriter.log(query);
 
         let aaa = Help.objArr();
         this.queryManager.createQuery(query, aaa, () => {
@@ -188,6 +195,7 @@ export default class PostsPrinter {
             response.status(200);
             response.end(JSON.stringify(answer));
         }, (e) => {
+            MyWriter.log(e);
         });
     }
 }

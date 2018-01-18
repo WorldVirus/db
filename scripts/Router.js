@@ -1,5 +1,6 @@
 "use strict";
 
+import MyWriter from "./MyWriter.js";
 
 import QueryManager from "./QueryManager";
 import DBiniter from "./DBiniter";
@@ -170,6 +171,7 @@ export default class Router {
             }
 
             if(mass[1] === "thread" && mass[3] === "details") {
+                    MyWriter.log("CHANGE_THREAD_INFO_NEED");
                     const thread_slug_id = mass[2];
                     this.threadWorker.changeThreadInfo(request, response, thread_slug_id);
                     return;
@@ -177,6 +179,7 @@ export default class Router {
             }
 
             if(mass[1] === "post" && mass[3] === "details") {
+                    MyWriter.log("__POST_____CHANGE__MESSAGE__INFO__");
                     const post_id = mass[2];
                     this.postWorker.changePostMessage(request, response, post_id);
                     return;

@@ -2,6 +2,7 @@
 
 import Help from "../Help";
 
+import MyWriter from "../MyWriter.js";
 
 export default class ForumWorker {
     constructor(app, pg, fs, queryManager) {

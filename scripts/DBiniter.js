@@ -1,5 +1,6 @@
 "use strict";
 
+import MyWriter from "./MyWriter.js";
 
 export default class DBiniter {
     constructor(app, pg, fs, queryManager, callback) {
@@ -14,8 +15,11 @@ export default class DBiniter {
                 callback();
             }, (e) => {
                 console.log("ERROR_OF_INITING_DATABASE");
-
+                MyWriter.log("================================================================================");
                 console.log("================================================================================");
+                console.log(e);
+                console.log("================================================================================");
+                MyWriter.log("================================================================================");
                 console.log("STOP");
             });
         });

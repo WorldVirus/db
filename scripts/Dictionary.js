@@ -1,5 +1,6 @@
 "use strict";
 
+import MyWriter from "./MyWriter.js";
 
 export default class Dictionary {
     constructor(content) {
