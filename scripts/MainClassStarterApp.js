@@ -4,7 +4,7 @@ import Router from "./Router";
 import express from "express";
 import pg from "pg";
 import fs from 'fs';
-import compression from 'compression';
+//import compression from 'compression';
 
     class MainClassStarterApp {
 
@@ -15,7 +15,7 @@ import compression from 'compression';
         this.fs = fs;
 
         this.router = new Router(this.app, this.pg, this.fs);
-        this.app.use(compression());
+       // this.app.use(compression());
      //   this.allowAllOrigins();
         this.addListenersToServerQueries();
         this.startServer();
@@ -28,14 +28,6 @@ import compression from 'compression';
         console.log("_____________________________________\n\n")
     }
 
-    // allowAllOrigins() {
-    //     const app = this.app;
-    //     app.use(function(req, res, next) {
-    //         res.header("Access-Control-Allow-Origin", "*");
-    //         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //         next();
-    //     });
-    // }
 
     addListenersToServerQueries() {
         const app = this.app;
