@@ -1,6 +1,5 @@
 "use strict";
 
-import MyWriter from "../MyWriter.js";
 
 import Help from "../Help";
 
@@ -28,18 +27,15 @@ export default class ThreadWorker {
             let q = " ";
 
             if (parseInt(thread_id_slug) + "" !== thread_id_slug + "") {
-                // is is slug
                 thread_slug = thread_id_slug;
                 q = " SELECT   t1 AS id   FROM t WHERE LOWER(t8) = LOWER('" + thread_slug + "');";
             } else {
-                // it is id
                 thread_id = thread_id_slug;
                 q = " SELECT   t1 AS id   FROM t WHERE t1 = " + thread_id + " ; ";
             }
 
                 this.queryManager.createQuery(q, aaa, () => {
                     if (aaa.arr.length === 0) {
-                        // branch not found
                         response.status(404);
                         response.end(JSON.stringify({
                             message: "NO"
@@ -86,14 +82,11 @@ export default class ThreadWorker {
                                 response.end(JSON.stringify(answer));
 
                             }, () => {
-                                MyWriter.log("ERROR_1");
                             });
                         }, () => {
-                            MyWriter.log("__UPDATING_ERROR___");
                         })
                     }
                 }, () => {
-                    MyWriter.log("ERROR_3");
                 });
         });
     }
@@ -157,7 +150,6 @@ export default class ThreadWorker {
                     response.end(JSON.stringify({
                         message: "NO"
                     }));
-                    MyWriter.log("P_1");
                 } else {
                     const user = aaa.arr[0];
                     const user_id = user.u1;
@@ -170,7 +162,6 @@ export default class ThreadWorker {
                             response.end(JSON.stringify({
                                 message: "NO"
                             }));
-                            MyWriter.log("P_2");
                         } else {
                             const forum = bbb.arr[0];
                             const forum_id = forum.f1;
@@ -196,24 +187,17 @@ export default class ThreadWorker {
                                 this.queryManager.createQuery("INSERT INTO fp (fp_1, fp_2) VALUES (" + user_id + ", " + forum_id + ");", {} , () => {
                                     response.status(201);
                                     response.end(JSON.stringify(answer));
-                                    MyWriter.log("P_3");
                                 }, () => {
                                     response.status(201);
                                     response.end(JSON.stringify(answer));
-                                    MyWriter.log("P_4");
                                 });
                             }, (err) => {
-                                MyWriter.log(err);
                                 // branch is already exists
                                 this.queryManager.createQuery("SELECT t2 AS author, t10 AS created, t4 AS forum, t1 AS id, t7 AS message, t8 AS slug, t6 AS title, t9 AS votes FROM t WHERE LOWER(t8) = LOWER('" + thread.slug + "');", eee, () => {
-                                    MyWriter.log("thread.slug: " + thread.slug);
                                     const answer = eee.arr[0];
-                                    MyWriter.log(answer);
                                     response.status(409);
                                     response.end(JSON.stringify(answer));
-                                    MyWriter.log("P_5");
                                 }, () => {
-                                    MyWriter.log("P_6");
                                 });
                             });
                         }
@@ -250,7 +234,6 @@ export default class ThreadWorker {
                 let since = null;
                 if(Help.exists(dict["since"]) === true) {
                     since = dict["since"] + "";
-                    MyWriter.log("SINCE: " + since);
                 }
 
                 if(since !== null) {
@@ -271,7 +254,6 @@ export default class ThreadWorker {
                     response.status(200);
                     response.end(JSON.stringify(bbb.arr));
                 }, (err) => {
-                    MyWriter.log(err);
                 });
             }
         }, () => {});

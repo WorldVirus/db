@@ -1,6 +1,5 @@
 "use strict";
 
-import MyWriter from "./MyWriter.js";
 
 export default class QueryManager {
     constructor(app, pg, fs) {
@@ -17,7 +16,6 @@ export default class QueryManager {
         });
 
         pool.on('error', (err, client) => {
-            MyWriter.log("_____POOL_____ERROR_____");
         });
 
         this.pool = pool;
@@ -28,10 +26,8 @@ export default class QueryManager {
 
         pool.query(queryString, [], (err, res) => {
             if(err !== null) {
-                MyWriter.log("callbackError");
                 callbackError(err);
             } else {
-                MyWriter.log("callbackNormal");
                 resultObject.arr = res.rows;
                 callbackNormal();
             }

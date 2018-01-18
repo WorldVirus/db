@@ -1,7 +1,5 @@
 "use strict";
 
-import MyWriter from "../MyWriter.js";
-
 import Help from "../Help";
 
 export default class VoteWorker {
@@ -80,7 +78,7 @@ export default class VoteWorker {
                                             response.status(200);
                                             response.end(JSON.stringify(answer));
                                         }, (err) => {
-                                            MyWriter.log(err);
+
                                         });
                                     }, () => {});
                                 } else {
@@ -92,7 +90,6 @@ export default class VoteWorker {
                                             response.status(200);
                                             response.end(JSON.stringify(answer));
                                         }, () => {
-                                            MyWriter.log("nnn");
                                         });
                                     }, () => {});
                                 }
