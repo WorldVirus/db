@@ -4,8 +4,9 @@ import Router from "./Router";
 import express from "express";
 import pg from "pg";
 import fs from 'fs';
+import compression from 'compression';
 
-class MainClassStarterApp {
+    class MainClassStarterApp {
 
     constructor() {
 
@@ -14,7 +15,7 @@ class MainClassStarterApp {
         this.fs = fs;
 
         this.router = new Router(this.app, this.pg, this.fs);
-
+        this.app.use(compression());
      //   this.allowAllOrigins();
         this.addListenersToServerQueries();
         this.startServer();
