@@ -37,9 +37,9 @@ DROP TABLE IF EXISTS u;
 
 /* ------------------------------------------------------------------------------- */
 
---CREATE SEQUENCE test
---START WITH 1 --the max range of the int datatype
---INCREMENT BY 1;
+CREATE SEQUENCE test
+START WITH 1 --the max range of the int datatype
+INCREMENT BY 1;
 
 
 CREATE TABLE u
