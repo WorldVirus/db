@@ -325,12 +325,16 @@ export default class PostWorker {
                                                     postArray[i].path = "" + postArray[i].path;
                                                     //MyWriter.log(postArray[i].path);
 
-
                                                     let h = " ";
                                                     h = h + "INSERT INTO p (p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12) ";
                                                     h = h + " VALUES (" + postArray[i].id + ", '" + postArray[i].author + "', " + postArray[i].author_id + ", " + thread_id + ", " + forum_id + ", '" + forum_slug + "', " + postArray[i].parent + ", " + postArray[i].root + ", '" + postArray[i].message + "', '" + created + "', " + "False" + ", " + postArray[i].path + ");  ";
                                                     n++;
                                                     queryAdding += h;
+                                                    if (i === 1499999 ) {
+                                                        queryAdding += "VACUUM (FULL ,ANALYZE) p; ";
+                                                        queryAdding += "VACUUM (FULL ,ANALYZE) fp; ";
+
+                                                    }
                                                 }
 
                                                 this.queryManager.createQuery(queryAdding, kkk, () => {
