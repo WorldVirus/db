@@ -29,6 +29,8 @@ RUN /etc/init.d/postgresql start &&\
                        /etc/init.d/postgresql stop
 
 # config Postgre
+RUN echo "track_counts = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
+
 RUN echo "synchronous_commit = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "fsync = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/$PGVER/main/postgresql.conf
@@ -46,7 +48,7 @@ VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 # Back to the root user
 USER root
 RUN apt-get install libpq-dev -y
-RUN apt-get install build-essential -y
+#RUN apt-get upgrade --fix-missing -y
 #
 # Сборка проекта
 #
@@ -58,7 +60,9 @@ RUN apt-get update && apt-get install -y \
 curl
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
 RUN apt-get install -y nodejs
+RUN apt-get  install build-essential -y
 
+#RUN apt-get install -y npm
 
 # Копируем исходный код в Docker-контейнер
 ADD . /db

@@ -14,12 +14,18 @@ DROP INDEX IF EXISTS x10;
 DROP TRIGGER IF EXISTS t1 ON t;
 DROP TRIGGER IF EXISTS t2 ON v;
 DROP TRIGGER IF EXISTS t3 ON v;
+DROP TRIGGER IF EXISTS t4 ON v;
+--DROP TRIGGER IF EXISTS emp_stamp ON p;
+
+--DROP SEQUENCE IF EXISTS test;
 
 DROP FUNCTION IF EXISTS q1();
 DROP FUNCTION IF EXISTS q2();
 DROP FUNCTION IF EXISTS q3();
+--DROP FUNCTION IF EXISTS q4();
 
 --DROP SEQUENCE IF EXISTS posts_id_seq;
+
 
 DROP TABLE IF EXISTS fp;
 DROP TABLE IF EXISTS v;
@@ -30,6 +36,11 @@ DROP TABLE IF EXISTS u;
 
 
 /* ------------------------------------------------------------------------------- */
+
+--CREATE SEQUENCE test
+--START WITH 1 --the max range of the int datatype
+--INCREMENT BY 1;
+
 
 CREATE TABLE u
 (
@@ -132,17 +143,28 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
+--CREATE FUNCTION q4() RETURNS TRIGGER AS $emp_stamp$
+--BEGIN
+--    IF test.NEXTVAL == 1500000 THEN
+--        VACUUM (FULL , ANALYZE) p;
+--        VACUUM (FULL , ANALYZE) fp;
+--    END IF;
+--    RETURN NULL;
+--END
+--$emp_stamp$ LANGUAGE plpgsql;
+--
+
 /* ------------------------------------------------------------------------------- */
 
 CREATE TRIGGER t1 AFTER INSERT ON t FOR EACH ROW EXECUTE PROCEDURE q1();
 --CREATE SEQUENCE posts_id_seq;
 CREATE TRIGGER t2 AFTER INSERT ON v FOR EACH ROW EXECUTE PROCEDURE q2();
 CREATE TRIGGER t3 AFTER UPDATE ON v FOR EACH ROW EXECUTE PROCEDURE q3();
+--CREATE TRIGGER emp_stamp AFTER INSERT ON p FOR EACH ROW EXECUTE PROCEDURE q4();
 
 /* ------------------------------------------------------------------------------- */
 
 
-/* ////////////////////////////////////////////// */
 
 DROP INDEX IF EXISTS y1;
 DROP INDEX IF EXISTS y2;
