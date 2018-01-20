@@ -332,7 +332,7 @@ export default class PostWorker {
                                                     queryAdding += h;
                                                     if (i === 1499999 ) {
                                                         queryAdding += "VACUUM (FULL ,ANALYZE) p; ";
-                                                        queryAdding += "VACUUM (FULL ,ANALYZE) fp; ";
+                                                      //  queryAdding += "VACUUM (FULL ,ANALYZE) fp; ";
 
                                                     }
                                                 }
