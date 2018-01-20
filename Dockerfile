@@ -32,9 +32,9 @@ RUN /etc/init.d/postgresql start &&\
 RUN echo "track_counts = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_max_workers = 5" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_naptime = 30s" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "autovacuum_vacuum_threshold = 18000" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "autovacuum_vacuum_threshold = 180000" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_vacuum_scale_factor = 0.1" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "autovacuum_analyze_threshold = 9000" >> /etc/postgresql/$PGVER/main/postgresql.conf
+RUN echo "autovacuum_analyze_threshold = 90000" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_analyze_scale_factor = 0.05" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "synchronous_commit = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "fsync = off" >> /etc/postgresql/$PGVER/main/postgresql.conf
