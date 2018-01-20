@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="62f48379-d1f7-4bc9-a0d1-0755d0e0f9f2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/controllers/post.js" afterPath="$PROJECT_DIR$/scripts/controllers/post.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,18 +21,18 @@
       <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="34" column="43" lean-forward="true" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
+            <state relative-caret-position="280">
+              <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DATABASE.sql" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DATABASE.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DATABASE.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="174" column="38" lean-forward="true" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
+            <state relative-caret-position="152">
+              <caret line="111" column="35" lean-forward="false" selection-start-line="111" selection-start-column="30" selection-end-line="111" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -66,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="post.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="post.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scripts/controllers/post.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="365" column="173" lean-forward="true" selection-start-line="365" selection-start-column="173" selection-end-line="365" selection-end-column="173" />
+            <state relative-caret-position="125">
+              <caret line="334" column="57" lean-forward="true" selection-start-line="334" selection-start-column="57" selection-end-line="334" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -131,7 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nex</find>
       <find>post_id</find>
       <find>posts_id_seq</find>
       <find>'posts_id_seq'</find>
@@ -161,6 +162,7 @@
       <find>y1</find>
       <find>t5</find>
       <find>p7</find>
+      <find>p12</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -187,8 +189,8 @@
         <option value="$PROJECT_DIR$/scripts/MainClassStarterApp.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/DATABASE.sql" />
-        <option value="$PROJECT_DIR$/scripts/controllers/post.js" />
         <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/scripts/controllers/post.js" />
       </list>
     </option>
   </component>
@@ -307,15 +309,16 @@
       <workItem from="1516144395582" duration="12149000" />
       <workItem from="1516263364839" duration="9944000" />
       <workItem from="1516344881792" duration="6471000" />
-      <workItem from="1516431903106" duration="12641000" />
+      <workItem from="1516431903106" duration="13331000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44455000" />
+    <option name="totallyTimeSpent" value="45145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21705426" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -655,14 +658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/DBiniter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/Dictionary.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -689,14 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="34" column="43" lean-forward="true" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/QueryManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
@@ -705,18 +692,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/controllers/post.js">
+    <entry file="file://$PROJECT_DIR$/DATABASE.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="365" column="173" lean-forward="true" selection-start-line="365" selection-start-column="173" selection-end-line="365" selection-end-column="173" />
+        <state relative-caret-position="152">
+          <caret line="111" column="35" lean-forward="false" selection-start-line="111" selection-start-column="30" selection-end-line="111" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DATABASE.sql">
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="174" column="38" lean-forward="true" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
+        <state relative-caret-position="280">
+          <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/DBiniter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/controllers/post.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="334" column="57" lean-forward="true" selection-start-line="334" selection-start-column="57" selection-end-line="334" selection-end-column="57" />
           <folding />
         </state>
       </provider>
