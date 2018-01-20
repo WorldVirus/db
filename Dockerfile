@@ -31,7 +31,6 @@ RUN /etc/init.d/postgresql start &&\
 # config Postgre
 RUN echo "track_counts = on" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_max_workers = 5" >> /etc/postgresql/$PGVER/main/postgresql.conf
-RUN echo "autovacuum_naptime = 30s" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_vacuum_threshold = 18000" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_vacuum_scale_factor = 0.1" >> /etc/postgresql/$PGVER/main/postgresql.conf
 RUN echo "autovacuum_analyze_threshold = 9000" >> /etc/postgresql/$PGVER/main/postgresql.conf
