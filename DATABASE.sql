@@ -115,9 +115,9 @@ CREATE UNIQUE INDEX x3 ON f ( LOWER(f3) );
 CREATE INDEX x4 ON fp ( fp_2, fp_1 );
 CREATE INDEX x5 ON t ( t5, t10 );
 CREATE UNIQUE INDEX x6 ON t ( LOWER(t8) );
-CREATE INDEX x7 ON p (p4, p12, p1) WHERE p7 = 0;
-CREATE INDEX x8 ON p (p4, p12);
-CREATE INDEX x9 ON p (p8, p12);
+CREATE INDEX x7 ON p (p4, p1) WHERE p7 = 0;
+CREATE INDEX x8 ON p (p4);
+CREATE INDEX x9 ON p (p8);
 CREATE INDEX x10 ON v (v3, v2, v1, v4);
 
 /* ------------------------------------------------------------------------------- */

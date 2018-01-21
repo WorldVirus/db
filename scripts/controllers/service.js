@@ -27,8 +27,8 @@ export default class ServiceWorker {
         let ccc = Help.objArr();
         let kkk = Help.objArr();
 
-        this.queryManager.createQuery("SELECT count(*) AS rrr FROM u;", aaa, () => {
-            this.queryManager.createQuery("SELECT count(*) AS rrr FROM f;", bbb, () => {
+        this.queryManager.createQuery("SELECT  count(*) AS rrr FROM u;", aaa, () => {
+            this.queryManager.createQuery("SELECT count(*)  AS rrr FROM f;", bbb, () => {
                 this.queryManager.createQuery("SELECT count(*) AS rrr FROM p;", ccc, () => {
                     this.queryManager.createQuery("SELECT count(*) AS rrr FROM t;", kkk, () => {
                         let users = aaa.arr[0].rrr;
